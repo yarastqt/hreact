@@ -3,9 +3,10 @@
   "version": "0.0.1-alpha.0",
   "license": "MIT",
   "scripts": {
-    "dev": "tsc -w"
+    "dev": "parcel public/index.html -p 8080"
   },
   "devDependencies": {
+    "parcel-bundler": "1.12.4",
     "typescript": "3.7.2"
   }
 }
