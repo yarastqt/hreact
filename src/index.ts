@@ -36,19 +36,18 @@ const createTextElement = (text: string) => {
 }
 
 type HReactElement = {
-  type: string
+  type: FC | string
   props: {
     children: HReactElement[]
   }
 }
 
-type HReactChildrenSingle = HReactElement | string
-type HReactChildren = HReactChildrenSingle[] | HReactChildrenSingle
+type HReactChildren = Array<HReactElement | string>
 export type FC<T = any> = (props: T) => HReactChildren
 
-export const createElement = (type: string, props: any, children: HReactChildren): HReactElement => {
-  const childs = Array.isArray(children) ? children : [children]
-  const processedChilds = childs.map(child => {
+// TODO: Use JSX helper for create element.
+export const createElement = (type: string, props: any, ...children: HReactChildren): HReactElement => {
+  const childs = children.map(child => {
     return typeof child === 'object'
       ? child
       : createTextElement(child)
@@ -59,7 +58,7 @@ export const createElement = (type: string, props: any, children: HReactChildren
     props: {
       // TODO: Handle children from props and convert them into array.
       ...props,
-      children: processedChilds,
+      children: childs,
     },
   }
 }
