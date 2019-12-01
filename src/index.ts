@@ -8,9 +8,14 @@ export const render = (element: HReactElement, container: Maybe<HTMLElement>) =>
     throw new Error('Container should be is valid DOM element.')
   }
 
+  if (typeof element.type === 'function') {
+    // @ts-ignore
+    element = element.type(element.props)
+  }
+
   const domElement = element.type === 'λ_TEXT_ELEMENT'
     ? document.createTextNode('')
-    : document.createElement(element.type)
+    : document.createElement(element.type as string)
 
   for (const prop in element.props) {
     if (prop !== 'children') {
