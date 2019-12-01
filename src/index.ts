@@ -1,12 +1,27 @@
 // hreact
 
 type Maybe<T> = T | null
+type Dict = { [key in string]: any }
 
 const render = (element: HReactElement, container: Maybe<HTMLElement>) => {
   if (container === undefined || container === null) {
     throw new Error('Container should be is valid DOM element.')
   }
-  const domElement = document.createElement(element.type)
+
+  const domElement = element.type === 'λ_TEXT_ELEMENT'
+    ? document.createTextNode('')
+    : document.createElement(element.type)
+
+  for (const prop in element.props) {
+    if (prop !== 'children') {
+      (domElement as Dict)[prop] = (element.props as Dict)[prop]
+    }
+  }
+
+  for (const child of element.props.children) {
+    render(child, domElement as HTMLElement)
+  }
+
   container.appendChild(domElement)
 }
 
