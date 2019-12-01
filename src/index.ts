@@ -3,7 +3,7 @@
 type Maybe<T> = T | null
 type Dict = { [key in string]: any }
 
-const render = (element: HReactElement, container: Maybe<HTMLElement>) => {
+export const render = (element: HReactElement, container: Maybe<HTMLElement>) => {
   if (container === undefined || container === null) {
     throw new Error('Container should be is valid DOM element.')
   }
@@ -44,8 +44,9 @@ type HReactElement = {
 
 type HReactChildrenSingle = HReactElement | string
 type HReactChildren = HReactChildrenSingle[] | HReactChildrenSingle
+export type FC<T = any> = (props: T) => HReactChildren
 
-const createElement = (type: string, props: any, children: HReactChildren): HReactElement => {
+export const createElement = (type: string, props: any, children: HReactChildren): HReactElement => {
   const childs = Array.isArray(children) ? children : [children]
   const processedChilds = childs.map(child => {
     return typeof child === 'object'
