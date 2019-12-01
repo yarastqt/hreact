@@ -1,8 +1,8 @@
 import { FC, render, createElement } from './index'
 
-const Button: FC = ({ children }) => {
+const Button: FC = (props) => {
   return (
-    <button>{children}</button>
+    <button>props.children</button>
   )
 }
 
@@ -10,9 +10,9 @@ const App = () => {
   return (
     <div>
       Hello world
-      <Button>Click me</Button>
+      <Button>Click me huh!</Button>
     </div>
   )
 }
 
-render(App(), document.getElementById('root'))
+render(<App />, document.getElementById('root'))
