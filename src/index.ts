@@ -27,7 +27,10 @@ type HReactElement = {
   }
 }
 
-const createElement = (type: string, props: any, children: string[] | string): HReactElement => {
+type HReactChildrenSingle = HReactElement | string
+type HReactChildren = HReactChildrenSingle[] | HReactChildrenSingle
+
+const createElement = (type: string, props: any, children: HReactChildren): HReactElement => {
   const childs = Array.isArray(children) ? children : [children]
   const processedChilds = childs.map(child => {
     return typeof child === 'object'
