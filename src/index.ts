@@ -23,7 +23,7 @@ const createTextElement = (text: string) => {
 type HReactElement = {
   type: string
   props: {
-    children: string[]
+    children: HReactElement[]
   }
 }
 
